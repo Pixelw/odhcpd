@@ -597,10 +597,11 @@ static int send_router_advert(struct interface *iface, const struct in6_addr *fr
 			memset(p, 0, sizeof(*p));
 		}
 
+		syslog(LOG_DEBUG, "addr->preferred_lt: %u, now: %u, iface->preferred_lifetime: %u",addr->preferred_lt, (uint32_t)now, iface->preferred_lifetime);
 		if (addr->preferred_lt > (uint32_t)now) {
 			preferred_lt = TIME_LEFT(addr->preferred_lt, now);
 
-			if (preferred_lt > iface->preferred_lifetime) {
+			if (preferred_lt < iface->preferred_lifetime) {
 				/* set to possibly user mandated preferred_lt */
 				preferred_lt = iface->preferred_lifetime;
 			}
