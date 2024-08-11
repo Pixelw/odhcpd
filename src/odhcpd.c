@@ -77,6 +77,7 @@ int main(int argc, char **argv)
 {
 	openlog("odhcpd", LOG_PERROR | LOG_PID, LOG_DAEMON);
 	int opt;
+	syslog(LOG_WARN, "Pixelw modded odhcpd starting!");
 
 	while ((opt = getopt(argc, argv, "hl:")) != -1) {
 		switch (opt) {
